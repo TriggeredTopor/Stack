@@ -28,7 +28,7 @@ Stack::Stack(const ValueType* valueArray, const size_t arraySize, StackContainer
 	// принцип тот же, что и в прошлом конструкторе
 	switch (container)
 	{
-	case StackContainer::List: {
+		case StackContainer::List: {
 		_pimpl = static_cast<IStackImplementation*>(new ListStack());    
 		break;
 	}
@@ -39,10 +39,10 @@ Stack::Stack(const ValueType* valueArray, const size_t arraySize, StackContainer
 	default:
 		throw std::runtime_error("Неизвестный тип контейнера");
 	}
-	for (int i = 0; i < arraySize; i++) {
-			_pimpl->push(valueArray[i]);
-		}
-		cout << _pimpl->size();
+	for (int i = 0; i < arraySize; i++)
+	{
+		_pimpl->push(valueArray[i]);
+	}
 }
 
 Stack::Stack(const Stack& copyStack) : _containerType(copyStack._containerType)
@@ -60,15 +60,16 @@ Stack::Stack(const Stack& copyStack) : _containerType(copyStack._containerType)
 	default:
 		throw std::runtime_error("Неизвестный тип контейнера");
 	}
-	ValueType* valueArray = new ValueType[copyStack._pimpl->size()];
+	std::vector<ValueType> valueArray;
 	const int tempSize = copyStack._pimpl->size();
-		for (int i = 0; i < tempSize; i++) {
-			valueArray[i] = copyStack._pimpl->top();
-			copyStack._pimpl->pop();
-		}
-		for (int k = tempSize - 1; k > -1; k--) {
-			_pimpl->push(valueArray[k]);
-		}
+	for (int i = 0; i < tempSize; i++) 
+	{
+		valueArray.push_back(copyStack._pimpl->top());
+		copyStack._pimpl->pop();
+	}
+	for (int k = tempSize - 1; k > -1; k--) {
+		_pimpl->push(valueArray[k]);
+	}
 }
 
 Stack& Stack::operator=(const Stack& copyStack)
@@ -87,20 +88,23 @@ Stack& Stack::operator=(const Stack& copyStack)
 	default:
 		throw std::runtime_error("Неизвестный тип контейнера");
 	}
-	ValueType* valueArray = new ValueType[copyStack._pimpl->size()];
+	std::vector<ValueType> valueArray;
 	const int tempSize = copyStack._pimpl->size();
-	for (int i = 0; i < copyStack._pimpl->size(); i++) {
-		valueArray[i] = copyStack._pimpl->top();
+	for (int i = 0; i < copyStack._pimpl->size(); i++) 
+	{
+		valueArray.push_back(copyStack._pimpl->top());
 		copyStack._pimpl->pop();
 	}
-	for (int k = tempSize - 1; k > -1; k--) {
+	for (int k = tempSize - 1; k > -1; k--) 
+	{
 		_pimpl->push(valueArray[k]);
 	}
 	return (*this);
 	
 }
 
-Stack::Stack(Stack&& moveStack) noexcept :_containerType(moveStack._containerType) {
+Stack::Stack(Stack&& moveStack) noexcept :_containerType(moveStack._containerType) 
+{
 	switch (_containerType)
 	{
 	case StackContainer::List: {
@@ -114,15 +118,7 @@ Stack::Stack(Stack&& moveStack) noexcept :_containerType(moveStack._containerTyp
 	default:
 		throw std::runtime_error("Неизвестный тип контейнера");
 	}
-			ValueType* valueArray = new ValueType[moveStack._pimpl->size()];
-		const int tempSize = moveStack._pimpl->size();
-		for (int i = 0; i < tempSize; i++) {
-			valueArray[i] = moveStack._pimpl->top();
-			moveStack._pimpl->pop();
-		}
-		for (int k = tempSize - 1; k > -1; k--) {
-			_pimpl->push(valueArray[k]);
-		}
+		_pimpl = moveStack._pimpl;
 		moveStack._pimpl = nullptr;
 };
 
@@ -141,16 +137,8 @@ Stack& Stack::operator=(Stack&& moveStack) noexcept {
 	default:
 		throw std::runtime_error("Неизвестный тип контейнера");
 	}
-	ValueType* valueArray = new ValueType[moveStack._pimpl->size()];
-		const int tempSize = moveStack._pimpl->size();
-		for (int i = 0; i < tempSize; i++) {
-			valueArray[i] = moveStack._pimpl->top();
-			moveStack._pimpl->pop();
-		}
-		for (int k = tempSize - 1; k > -1; k--) {
-			_pimpl->push(valueArray[k]);
-		}
-		moveStack._pimpl = nullptr;
+	_pimpl = moveStack._pimpl;
+	moveStack._pimpl = nullptr;
 	return(*this);
 };
 
@@ -184,3 +172,4 @@ size_t Stack::size() const
 {
 	return _pimpl->size();
 }
+
