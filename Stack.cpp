@@ -28,44 +28,46 @@ Stack::Stack(const ValueType* valueArray, const size_t arraySize, StackContainer
 	// принцип тот же, что и в прошлом конструкторе
 	switch (_containerType)
 	{
-	case StackContainer::List: 
-	{
-		_pimpl = static_cast<IStackImplementation*>(new ListStack());
-		break;
+		case StackContainer::List: 
+		{
+			_pimpl = static_cast<IStackImplementation*>(new ListStack());
+			break;
+		}
+
+		case StackContainer::Vector: 
+		{
+			_pimpl = static_cast<IStackImplementation*>(new VectorStack());
+			break;
+		}
+
+		default:
+			throw std::runtime_error("Неизвестный тип контейнера");
 	}
-	case StackContainer::Vector: 
-	{
-		_pimpl = static_cast<IStackImplementation*>(new VectorStack());
-		break;
-	}
-	default:
-		throw std::runtime_error("Неизвестный тип контейнера");
-	}
+
 	for (int i = 0; i < arraySize; i++)
 	{
 		_pimpl->push(valueArray[i]);
-	}
+	}	
 }
 
 Stack::Stack(const Stack& copyStack) : _containerType(copyStack._containerType)
 {
 	switch (_containerType)
 	{
-
-	case StackContainer::List: 
-
+	case StackContainer::List:
 	{
 		_pimpl = static_cast<IStackImplementation*>(new ListStack());
 		break;
 	}
 
-	case StackContainer::Vector: 
+	case StackContainer::Vector:
 	{
 		_pimpl = static_cast<IStackImplementation*>(new VectorStack());
 		break;
-	}
-	default:
-		throw std::runtime_error("Неизвестный тип контейнера");
+		}
+
+		default:
+			throw std::runtime_error("Неизвестный тип контейнера");
 	}
 	
 
