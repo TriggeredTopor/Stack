@@ -4,7 +4,8 @@
 #include "StackImplementation.h"
 #include <stdexcept>
 
-Stack::Stack(StackContainer container) : _containerType(container)
+Stack::Stack(StackContainer container) 
+	: _containerType(container)
 {
 	switch (_containerType)
 	{
@@ -49,7 +50,8 @@ Stack::Stack(const ValueType* valueArray, const size_t arraySize, StackContainer
 	}	
 }
 
-Stack::Stack(const Stack& copyStack) : _containerType(copyStack._containerType)
+Stack::Stack(const Stack& copyStack) 
+	: _containerType(copyStack._containerType)
 {
 	
 	switch (_containerType)
@@ -137,29 +139,33 @@ Stack& Stack::operator=(const Stack& copyStack)
 	return *this;
 }
 
-Stack::Stack(Stack&& moveStack) noexcept :_containerType(moveStack._containerType)
+Stack::Stack(Stack&& moveStack) noexcept 
+	:_containerType(moveStack._containerType)
 {
 	switch (_containerType)
 	{
-	case StackContainer::List: {
-		_pimpl = static_cast<IStackImplementation*>(new ListStack());
-		break;
-	}
+		case StackContainer::List: 
+		{
+			_pimpl = static_cast<IStackImplementation*>(new ListStack());
+			break;
+		}
 
-	case StackContainer::Vector: {
-		_pimpl = static_cast<IStackImplementation*>(new VectorStack());
-		break;
-	}
+		case StackContainer::Vector: 
+		{
+			_pimpl = static_cast<IStackImplementation*>(new VectorStack());
+			break;
+		}
 
-	default:
-		throw std::runtime_error("Неизвестный тип контейнера");
+		default:
+			throw std::runtime_error("Неизвестный тип контейнера");
 	}
 
 	_pimpl = moveStack._pimpl;
 	moveStack._pimpl = nullptr;
 }
 
-Stack& Stack::operator=(Stack&& moveStack) noexcept {
+Stack& Stack::operator=(Stack&& moveStack) noexcept 
+{
 	if (this == &moveStack)
 	{
 		return *this;
@@ -167,17 +173,20 @@ Stack& Stack::operator=(Stack&& moveStack) noexcept {
 
 	switch (moveStack._containerType)
 	{
-		case StackContainer::List: {
+		case StackContainer::List: 
+		{
 			_pimpl = static_cast<IStackImplementation*>(new ListStack());
 			break;
 		}
-		case StackContainer::Vector: {
+		case StackContainer::Vector: 
+		{
 			_pimpl = static_cast<IStackImplementation*>(new VectorStack());
 			break;
 		}
 		default:
 			throw std::runtime_error("Неизвестный тип контейнера");
 	}
+	
 	_pimpl = moveStack._pimpl;
 	moveStack._pimpl = nullptr;
 
