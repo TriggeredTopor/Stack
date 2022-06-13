@@ -14,11 +14,13 @@ Stack::Stack(StackContainer container)
 			_pimpl = static_cast<IStackImplementation*>(new ListStack());
 			break;
 		}
+			
 		case StackContainer::Vector: 
 		{
 			_pimpl = static_cast<IStackImplementation*>(new VectorStack());
 			break;
 		}
+			
 		default:
 			throw std::runtime_error("Неизвестный тип контейнера");
 	}
@@ -113,6 +115,7 @@ Stack& Stack::operator=(const Stack& copyStack)
 			_pimpl = static_cast<IStackImplementation*>(new VectorStack());
 			break;
 		}
+			
 		default:
 			throw std::runtime_error("Неизвестный тип контейнера");
 	}
@@ -178,11 +181,13 @@ Stack& Stack::operator=(Stack&& moveStack) noexcept
 			_pimpl = static_cast<IStackImplementation*>(new ListStack());
 			break;
 		}
+			
 		case StackContainer::Vector: 
 		{
 			_pimpl = static_cast<IStackImplementation*>(new VectorStack());
 			break;
 		}
+			
 		default:
 			throw std::runtime_error("Неизвестный тип контейнера");
 	}
