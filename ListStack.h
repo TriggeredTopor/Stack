@@ -5,23 +5,22 @@
 using ValueType = double;
 using namespace std;
 
-class ListStack : public IStackImplementation{
+class ListStack : public IStackImplementation {
 private:
-	list <ValueType> List;
+    list <ValueType> List;
 public:
-  	// do new construct list = null ptr
-	ListStack();
-	// добавление в хвост
+
+    ListStack();
+
     void push(const ValueType& value)override;
-    // удаление с хвоста
+
     void pop()override;
-    // посмотреть элемент в хвосте
+
     const ValueType& top() const override;
-    // проверка на пустоту
-	bool isEmpty() const override;
-    // размер 
+
+    bool isEmpty() const override;
+
     size_t size() const override;
-    // виртуальный деструктор
-   	virtual  ~ListStack();
+
+    virtual  ~ListStack();
 };
-	
