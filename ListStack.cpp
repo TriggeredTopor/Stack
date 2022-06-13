@@ -1,9 +1,7 @@
 #include "ListStack.h"
 
 ListStack::ListStack() 
-{
-	
-}
+{}
 
 void ListStack::push(const ValueType& value) 
 {
