@@ -1,32 +1,40 @@
 #include "ListStack.h"
 
-ListStack::ListStack() {
-	List.clear();
+ListStack::ListStack() 
+{
+	
 }
 
-void ListStack::push(const ValueType& value) {
+void ListStack::push(const ValueType& value) 
+{
 	List.push_back(value);
-};
+}
 
-void ListStack::pop() {
+void ListStack::pop() 
+{
 	List.pop_back();
-};
+}
 
-const ValueType& ListStack::top() const {
+const ValueType& ListStack::top() const 
+{
 	return(List.back());
-};
+}
 
-bool ListStack::isEmpty() const {
-	if (List.empty()) {
+bool ListStack::isEmpty() const 
+{
+	if (List.empty()) 
+	{
 		return true;
 	}
 	return false;
-};
+}
 
-size_t ListStack::size() const {
+size_t ListStack::size() const 
+{
 	return (List.size());
-};
+}
 
-ListStack::~ListStack() {
+ListStack::~ListStack() 
+{
 	List.clear();
 }
