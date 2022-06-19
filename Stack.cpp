@@ -74,25 +74,26 @@ Stack::Stack(const Stack& copyStack)
 			throw std::runtime_error("Неизвестный тип контейнера");
 	}
 
-	std::vector<ValueType> temparray;
-	const int tempsize = copyStack.size();
+	std::vector<ValueType> tempArray;
+	const int tempSize = copyStack.size();
 	
-	for (int i = (tempsize - 1); i > -1; i--)
+	for (int i = (tempSize - 1); i > -1; i--)
 	{
-		temparray.push_back(copyStack._pimpl->top());
+		tempArray.push_back(copyStack._pimpl->top());
 		copyStack._pimpl->pop();
 	}
 
-	for (int j = (tempsize - 1); j > -1; j--)
+	for (int j = (tempSize - 1); j > -1; j--)
 	{
-		copyStack._pimpl->push(temparray[j]);
+		copyStack._pimpl->push(tempArray[j]);
 	}
 	
-	for (int k = (tempsize - 1); k > -1; k--)
+	for (int k = (tempSize - 1); k > -1; k--)
 	{
-		_pimpl->push(temparray[k]);
+		_pimpl->push(tempArray[k]);
 	}
 
+	tempArray.clear();
 }
 
 Stack& Stack::operator=(const Stack& copyStack) 
@@ -120,24 +121,26 @@ Stack& Stack::operator=(const Stack& copyStack)
 			throw std::runtime_error("Неизвестный тип контейнера");
 	}
 	
-	std::vector<ValueType> temparray;
-	const int tempsize = copyStack.size();
+	std::vector<ValueType> tempArray;
+	const int tempSize = copyStack.size();
 	
-	for (int i = (tempsize - 1); i > -1; i--)
+	for (int i = (tempSize - 1); i > -1; i--)
 	{
-		temparray.push_back(copyStack._pimpl->top());
+		tempArray.push_back(copyStack._pimpl->top());
 		copyStack._pimpl->pop();
 	}
 
-	for (int j = (tempsize - 1); j > -1; j--)
+	for (int j = (tempSize - 1); j > -1; j--)
 	{
-		copyStack._pimpl->push(temparray[j]); 
+		copyStack._pimpl->push(tempArray[j]); 
 	}
 	
-	for (int k = (tempsize - 1); k > -1; k--)
+	for (int k = (tempSize - 1); k > -1; k--)
 	{
-		_pimpl->push(temparray[k]);
+		_pimpl->push(tempArray[k]);
 	}
+	
+	tempArray.clear();
 
 	return *this;
 }
